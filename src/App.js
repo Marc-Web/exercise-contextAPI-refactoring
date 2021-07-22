@@ -13,25 +13,36 @@ class App extends React.Component {
         blue: false,
         yellow: false,
     },
+      signal: {
+        color: 'red'
+    },
   }
   this.moveCar = this.moveCar.bind(this);
+  this.changeSignal = this.changeSignal.bind(this);
 };
 
   moveCar(car, side) {
     this.setState({ cars: { ...this.state, [car]: side } });
   }
 
+  changeSignal(signalColor) {
+    this.setState({ signal: { ...this.state.signal, color: signalColor } })
+  }
+
   render() {
     const contextValue = {
       ...this.state,
       moveCar: this.moveCar,
+      changeSignal: this.changeSignal,
     }
     return (
       <div className="container">
         <CarsContext.Provider value={ contextValue }>
-          <Cars />
+          <>
+            <Cars />
+            <TrafficSignal />
+          </>
         </CarsContext.Provider>
-        <TrafficSignal />
       </div>
     );
   }
